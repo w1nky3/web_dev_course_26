@@ -23,7 +23,7 @@ class CreditCardPayment < PaymentStrategy
   # TODO: Implement pay method
   # Return "Paid $#{amount} using Credit Card ending in #{last_4_digits}"
   def pay(amount)
-    nil
+    return "Paid $#{amount} using Credit Card ending in #{last_4_digits}"
   end
   
   private
@@ -41,7 +41,7 @@ class PayPalPayment < PaymentStrategy
   # TODO: Implement pay method
   # Return "Paid $#{amount} using PayPal account #{email}"
   def pay(amount)
-    nil
+    return "Paid $#{amount} using PayPal account #{@email}"
   end
 end
 
@@ -53,7 +53,7 @@ class CryptoPayment < PaymentStrategy
   # TODO: Implement pay method
   # Return "Paid $#{amount} using Crypto wallet #{wallet_address}"
   def pay(amount)
-    nil
+    return "Paid $#{amount} using Crypto wallet #{@wallet_address}"
   end
 end
 
@@ -69,7 +69,7 @@ class ShoppingCart
   
   # TODO: Implement set_payment_strategy method
   def set_payment_strategy(strategy)
-    nil
+    @payment_strategy = strategy
   end
   
   def total
@@ -80,7 +80,12 @@ class ShoppingCart
   # Use the payment strategy to process payment
   # Return the result from payment strategy's pay method
   def checkout
-    nil
+    if @payment_strategy.nil?
+      raise "Payment strategy not set"
+    end
+
+    amount = total
+    @payment_strategy.pay(amount)
   end
 end
 
@@ -99,7 +104,14 @@ class BubbleSort
   # TODO: Implement bubble sort
   # Return sorted array (ascending order)
   def sort(array)
-    nil
+    for i in 0...array.length
+      for j in 0...array.length - i - 1
+        if array[j] > array[j + 1]
+          array[j], array[j + 1] = array[j + 1], array[j]
+        end
+      end
+    end
+    return array
   end
 end
 
@@ -109,7 +121,7 @@ class QuickSort
   # TODO: Implement quick sort or use Ruby's built-in sort
   # Return sorted array (ascending order)
   def sort(array)
-    nil
+    return array.sort
   end
 end
 
@@ -119,7 +131,7 @@ class ReverseSort
   # TODO: Implement reverse sort
   # Return sorted array (descending order)
   def sort(array)
-    nil
+    return array.sort.reverse
   end
 end
 
@@ -130,13 +142,13 @@ class DataProcessor
   
   # TODO: Implement set_strategy method
   def set_strategy(strategy)
-    nil
+    @sort_strategy = strategy
   end
   
   # TODO: Implement process method
   # Use the sort strategy to sort the data
   def process(data)
-    nil
+    @sort_strategy.sort(data)
   end
 end
 
@@ -153,7 +165,7 @@ class ZipCompression < CompressionStrategy
   # TODO: Implement compress method
   # Return "ZIP compressed: #{data}"
   def compress(data)
-    nil
+    return "ZIP compressed: #{data}"
   end
 end
 
@@ -161,7 +173,7 @@ class RarCompression < CompressionStrategy
   # TODO: Implement compress method
   # Return "RAR compressed: #{data}"
   def compress(data)
-    nil
+    return "RAR compressed: #{data}"
   end
 end
 
@@ -169,7 +181,7 @@ class NoCompression < CompressionStrategy
   # TODO: Implement compress method
   # Return "Not compressed: #{data}"
   def compress(data)
-    nil
+    return "Not compressed: #{data}"
   end
 end
 
@@ -182,13 +194,13 @@ class FileHandler
   
   # TODO: Implement set_compression method
   def set_compression(strategy)
-    nil
+    @compression_strategy = strategy
   end
   
   # TODO: Implement save_file method
   # Compress data using the strategy and return result
   def save_file(data)
-    nil
+    @compression_strategy.compress(data)
   end
 end
 
